@@ -1,10 +1,12 @@
-import { Refine } from "@pankod/refine";
+import { Icons, Refine } from "@pankod/refine";
 import routerProvider from "@pankod/refine-react-router";
-
-import "@pankod/refine/dist/styles.min.css";
 import simpleRestDataProvider from "@pankod/refine-simple-rest";
+import "@pankod/refine/dist/styles.min.css";
 import { useTranslation } from "react-i18next";
-import { Header } from "components";
+import authProvider from "./auth-provider";
+import { Header, Title } from "./components/layout";
+import { LoginPage } from "./pages/login";
+import { PostCreate, PostEdit, PostList, PostShow } from "./pages/posts/index";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -20,11 +22,25 @@ function App() {
 
   return (
     <Refine
+      authProvider={authProvider}
       routerProvider={routerProvider}
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
+      LoginPage={LoginPage}
+      Title={Title}
       Header={Header}
-    ></Refine>
+      resources={[
+        {
+          name: "posts",
+          icon: <Icons.BookOutlined />,
+          list: PostList,
+          show: PostShow,
+          edit: PostEdit,
+          create: PostCreate,
+          canDelete: true,
+        },
+      ]}
+    />
   );
 }
 

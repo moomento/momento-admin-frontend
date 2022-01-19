@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "Momento",
+    "symbol": "MNTO"
+  },
   "pages": {
     "login": {
       "signin": "Sign in",
