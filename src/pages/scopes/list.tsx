@@ -23,8 +23,8 @@ export const ScopeList: React.FC = () => {
           render={(value) => <DateField format="LLL" value={value} />}
         />
         <Table.Column
-          dataIndex="Updated at"
-          title="updatedAt"
+          dataIndex="updatedAt"
+          title="Updated at"
           render={(value) => <DateField format="LLL" value={value} />}
         />
 
