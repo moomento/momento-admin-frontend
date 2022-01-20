@@ -1,12 +1,7 @@
-export interface ICategory {
+export interface IScope {
   id: string;
-  title: string;
-}
-
-export interface IPost {
-  id: string;
-  title: string;
-  status: "published" | "draft" | "rejected";
-  category: { id: string };
+  name: string;
   createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
 }
