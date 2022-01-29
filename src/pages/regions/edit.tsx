@@ -4,7 +4,9 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ReactMde from "react-mde";
 
-export const ScopeEdit: React.FC = () => {
+import "react-mde/lib/styles/css/react-mde-all.css";
+
+export const RegionEdit: React.FC = () => {
   const { formProps, saveButtonProps } = useForm<IScope>();
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 

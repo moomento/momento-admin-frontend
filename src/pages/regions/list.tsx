@@ -11,7 +11,7 @@ import {
 
 import { IScope } from "../../interfaces";
 
-export const ScopeList: React.FC = () => {
+export const RegionList: React.FC = () => {
   const { tableProps } = useTable<IScope>();
   return (
     <List>

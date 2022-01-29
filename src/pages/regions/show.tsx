@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 
 const { Title, Text } = Typography;
 
-export const ScopeShow = () => {
+export const RegionShow = () => {
   const { queryResult } = useShow();
   const { data, isLoading } = queryResult;
   const record = data?.data;

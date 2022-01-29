@@ -1,15 +1,15 @@
-import { useForm, Form, Input, Edit } from "@pankod/refine";
+import { Create, Form, Input, useForm } from "@pankod/refine";
 import { IScope } from "interfaces";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ReactMde from "react-mde";
 
-export const ScopeEdit: React.FC = () => {
+export const RegionCreate = () => {
   const { formProps, saveButtonProps } = useForm<IScope>();
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
   return (
-    <Edit saveButtonProps={saveButtonProps}>
+    <Create saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
           label="Name"
@@ -32,6 +32,6 @@ export const ScopeEdit: React.FC = () => {
           />
         </Form.Item>
       </Form>
-    </Edit>
+    </Create>
   );
 };
