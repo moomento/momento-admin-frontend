@@ -1,25 +1,27 @@
 import {
+  CrudFilters,
   DateField,
   DeleteButton,
   EditButton,
   Form,
   FormProps,
+  HttpError,
   Icons,
   Input,
   List,
   ShowButton,
   Space,
   Table,
+  useNavigation,
   useTable,
   useTranslate,
-  CrudFilters,
-  HttpError,
 } from "@pankod/refine";
-import { IRegion, IRegionFilterVariables } from "../../interfaces";
+import { ICollection, IRegionFilterVariables } from "../../interfaces";
 
-export const RegionList: React.FC = () => {
+export const CollectionList: React.FC = () => {
+  const { show } = useNavigation();
   const { tableProps, searchFormProps } = useTable<
-    IRegion,
+    ICollection,
     HttpError,
     IRegionFilterVariables
   >({
@@ -53,7 +55,7 @@ export const RegionList: React.FC = () => {
           render={(value) => <DateField format="LLL" value={value} />}
         />
 
-        <Table.Column<IRegion>
+        <Table.Column<ICollection>
           title="Actions"
           dataIndex="actions"
           render={(_text, record): React.ReactNode => {
@@ -73,7 +75,6 @@ export const RegionList: React.FC = () => {
 
 const Filter: React.FC<{ formProps: FormProps }> = (props) => {
   const t = useTranslate();
-  console.log(props.formProps);
   return (
     <Form {...props.formProps}>
       <Form.Item name="q">

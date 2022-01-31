@@ -96,6 +96,7 @@ const SimpleRestDataProvider = (
   getList: async ({ resource, pagination, filters, sort }) => {
     const url = `${apiUrl}/${resource}`;
 
+    console.log(pagination)
     const current = pagination?.current || 1;
     const pageSize = pagination?.pageSize || 10;
 
@@ -104,31 +105,24 @@ const SimpleRestDataProvider = (
     const queryFilters = generateFilter(filters);
 
     const query = {
-      _start: (current - 1) * pageSize,
-      _end: current * pageSize,
-      _sort: _sort.join(","),
-      _order: _order.join(","),
+      skip: (current - 1) * pageSize,
+      take: pageSize,
+      sort: _sort.join(","),
+      order: _order.join(","),
     };
 
-    const { data, headers } = await httpClient.get(
+    const { data } = await httpClient.get(
       `${url}?${qs.stringify(query)}&${qs.stringify(queryFilters)}`
     );
-
-    const total = +headers["x-total-count"];
-
-    return {
-      data,
-      total,
-    };
+    console.log('list', data);
+    return data;
   },
   getMany: async ({ resource, ids }) => {
     const { data } = await httpClient.get(
       `${apiUrl}/${resource}?${qs.stringify({ id: ids })}`
     );
 
-    return {
-      data,
-    };
+    return data;
   },
   getOne: async ({ resource, id }) => {
     const url = `${apiUrl}/${resource}/${id}`;

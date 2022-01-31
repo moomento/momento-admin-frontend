@@ -1,24 +1,26 @@
 import { Icons, Refine } from "@pankod/refine";
 import routerProvider from "@pankod/refine-react-router";
-import simpleRestDataProvider from "./data-provider";
 import "@pankod/refine/dist/styles.min.css";
+import { CategoryCreate, CategoryEdit, CategoryList, CategoryShow } from "pages/categories";
+import { CollectionCreate, CollectionEdit, CollectionList, CollectionShow } from "pages/collections";
+import {
+  RegionCreate,
+  RegionEdit,
+  RegionList,
+  RegionShow
+} from "pages/regions";
 import { useTranslation } from "react-i18next";
 import authProvider from "./auth-provider";
 import { Header, Title } from "./components/layout";
+import Config from "./config";
+import simpleRestDataProvider from "./data-provider";
 import { LoginPage } from "./pages/login";
 import {
   ScopeCreate,
   ScopeEdit,
   ScopeList,
-  ScopeShow,
+  ScopeShow
 } from "./pages/scopes/index";
-import Config from "./config";
-import {
-  RegionCreate,
-  RegionEdit,
-  RegionList,
-  RegionShow,
-} from "pages/regions";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -52,11 +54,29 @@ function App() {
         },
         {
           name: "regions",
-          icon: <Icons.BookOutlined />,
+          icon: <Icons.EnvironmentOutlined />,
           list: RegionList,
           show: RegionShow,
           edit: RegionEdit,
           create: RegionCreate,
+          canDelete: true,
+        },
+        {
+          name: "collections",
+          icon: <Icons.TagsOutlined />,
+          list: CollectionList,
+          show: CollectionShow,
+          edit: CollectionEdit,
+          create: CollectionCreate,
+          canDelete: true,
+        },
+        {
+          name: "categories",
+          icon: <Icons.BarsOutlined />,
+          list: CategoryList,
+          show: CategoryShow,
+          edit: CategoryEdit,
+          create: CategoryCreate,
           canDelete: true,
         },
       ]}

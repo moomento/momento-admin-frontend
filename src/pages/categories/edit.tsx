@@ -1,14 +1,22 @@
-import { useForm, Form, Input, Edit } from "@pankod/refine";
-import { IRegion } from "interfaces";
+import { useForm, Form, Input, Edit, useSelect, Select } from "@pankod/refine";
+import { ICategory, IRegion, IScope } from "interfaces";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ReactMde from "react-mde";
 
-import "react-mde/lib/styles/css/react-mde-all.css";
-
-export const RegionEdit: React.FC = () => {
-  const { formProps, saveButtonProps } = useForm<IRegion>();
+export const CategoryEdit: React.FC = () => {
+  const { formProps, saveButtonProps } = useForm<ICategory>();
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
+  const { selectProps: scopeSelectProps } = useSelect<IScope>({
+    resource: "scopes",
+    optionLabel: "name",
+    optionValue: "id",
+  });
+  const { selectProps: regionSelectProps } = useSelect<IRegion>({
+    resource: "regions",
+    optionLabel: "name",
+    optionValue: "id",
+  });
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
@@ -32,6 +40,12 @@ export const RegionEdit: React.FC = () => {
               Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
             }
           />
+        </Form.Item>
+        <Form.Item label="Scope" name="scopeId">
+          <Select {...scopeSelectProps} allowClear placeholder="Scope" />
+        </Form.Item>
+        <Form.Item label="Region" name="regionId">
+          <Select {...regionSelectProps} allowClear placeholder="Region" />
         </Form.Item>
       </Form>
     </Edit>

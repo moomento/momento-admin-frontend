@@ -1,17 +1,15 @@
-import { useForm, Form, Input, Edit } from "@pankod/refine";
-import { IRegion } from "interfaces";
+import { Create, Form, Input, useForm } from "@pankod/refine";
+import { ICollection } from "interfaces";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ReactMde from "react-mde";
 
-import "react-mde/lib/styles/css/react-mde-all.css";
-
-export const RegionEdit: React.FC = () => {
-  const { formProps, saveButtonProps } = useForm<IRegion>();
+export const CollectionCreate = () => {
+  const { formProps, saveButtonProps } = useForm<ICollection>();
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
   return (
-    <Edit saveButtonProps={saveButtonProps}>
+    <Create saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
           label="Name"
@@ -34,6 +32,6 @@ export const RegionEdit: React.FC = () => {
           />
         </Form.Item>
       </Form>
-    </Edit>
+    </Create>
   );
 };
