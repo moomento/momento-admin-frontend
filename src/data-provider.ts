@@ -7,7 +7,7 @@ import {
 } from "@pankod/refine";
 import * as qs from "qs";
 
-const axiosInstance = axios.create();
+export const axiosInstance = axios.create();
 
 const generateSort = (sort?: CrudSorting) => {
   let _sort = ["id"]; // default sorting field
@@ -96,7 +96,6 @@ const SimpleRestDataProvider = (
   getList: async ({ resource, pagination, filters, sort }) => {
     const url = `${apiUrl}/${resource}`;
 
-    console.log(pagination)
     const current = pagination?.current || 1;
     const pageSize = pagination?.pageSize || 10;
 
@@ -114,7 +113,6 @@ const SimpleRestDataProvider = (
     const { data } = await httpClient.get(
       `${url}?${qs.stringify(query)}&${qs.stringify(queryFilters)}`
     );
-    console.log('list', data);
     return data;
   },
   getMany: async ({ resource, ids }) => {

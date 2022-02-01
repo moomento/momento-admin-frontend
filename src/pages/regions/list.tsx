@@ -73,7 +73,6 @@ export const RegionList: React.FC = () => {
 
 const Filter: React.FC<{ formProps: FormProps }> = (props) => {
   const t = useTranslate();
-  console.log(props.formProps);
   return (
     <Form {...props.formProps}>
       <Form.Item name="q">

@@ -77,7 +77,6 @@ export const ScopeList: React.FC = () => {
 const Filter: React.FC<{ formProps: FormProps }> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const t = useTranslate();
-  console.log(props.formProps);
   return (
     <Form {...props.formProps}>
       <Form.Item name="q">
