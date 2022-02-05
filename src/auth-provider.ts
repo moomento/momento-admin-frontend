@@ -33,13 +33,18 @@ const authProvider = {
   }) => {
     // Suppose we actually send a request to the back end here.
     const uri = `${Config.apiUrl}/auth-admins/signin`;
-    const { data } = await httpClient.post(uri, {
-      username,
-      password,
-    });
-    if (data) {
-      localStorage.setItem(AUTH_FIELD, JSON.stringify(data));
-      return Promise.resolve();
+    try {
+      const { data } = await httpClient.post(uri, {
+        username,
+        password,
+      });
+      if (data) {
+        localStorage.setItem(AUTH_FIELD, JSON.stringify(data));
+        return Promise.resolve();
+      }
+    } catch (error: any) {
+      const { response } = error;
+      return Promise.reject(new Error(response.data.message));
     }
     return Promise.reject();
   },
@@ -55,6 +60,7 @@ const authProvider = {
     return Promise.reject();
   },
   checkError: (error: any) => {
+    console.log(error);
     if (error.status === 401) {
       return Promise.reject();
     }
