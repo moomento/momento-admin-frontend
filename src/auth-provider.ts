@@ -1,4 +1,3 @@
-import {} from "@pankod/refine";
 import Config from "config";
 import { axiosInstance as httpClient } from "data-provider";
 
@@ -10,15 +9,6 @@ httpClient.interceptors.request.use((req) => {
     req.headers["Authorization"] = `Bearer ${auth.token}`;
   }
   return req;
-});
-
-httpClient.interceptors.response.use((res) => {
-  switch (res.status) {
-    case 401:
-      authProvider.logout();
-      break;
-  }
-  return res;
 });
 
 const authProvider = {
@@ -60,8 +50,7 @@ const authProvider = {
     return Promise.reject();
   },
   checkError: (error: any) => {
-    console.log(error);
-    if (error.status === 401) {
+    if (error.statusCode === 401) {
       return Promise.reject();
     }
     return Promise.resolve();

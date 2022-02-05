@@ -58,13 +58,14 @@ const SimpleRestDataProvider = (
   apiUrl: string,
   httpClient: AxiosInstance = axiosInstance
 ): DataProvider => ({
-  create: async ({ resource, variables }) => {
+  create: ({ resource, variables }) => {
     const url = `${apiUrl}/${resource}`;
-    const { data } = await httpClient.post(url, variables);
-
-    return {
-      data,
-    };
+    return httpClient
+      .post(url, variables)
+      .then(({ data }) => Promise.resolve({ data }))
+      .catch(({ response }: { response: any }) =>
+        Promise.reject(response.data)
+      );
   },
   createMany: async ({ resource, variables }) => {
     const response = await Promise.all(
@@ -73,16 +74,14 @@ const SimpleRestDataProvider = (
         return data;
       })
     );
-
     return { data: response };
   },
-  deleteOne: async ({ resource, id }) => {
+  deleteOne: ({ resource, id }) => {
     const url = `${apiUrl}/${resource}/${id}`;
-    const { data } = await httpClient.delete(url);
-
-    return {
-      data,
-    };
+    return httpClient
+      .delete(url)
+      .then(({ data }) => Promise.resolve({ data }))
+      .catch(({ response }) => Promise.reject(response.data));
   },
   deleteMany: async ({ resource, ids }) => {
     const response = await Promise.all(
@@ -119,26 +118,21 @@ const SimpleRestDataProvider = (
     const { data } = await httpClient.get(
       `${apiUrl}/${resource}?${qs.stringify({ id: ids })}`
     );
-
     return data;
   },
-  getOne: async ({ resource, id }) => {
+  getOne: ({ resource, id }) => {
     const url = `${apiUrl}/${resource}/${id}`;
-
-    const { data } = await httpClient.get(url);
-
-    return {
-      data,
-    };
+    return httpClient
+      .get(url)
+      .then(({ data }) => Promise.resolve({ data }))
+      .catch(({ response }) => Promise.reject(response.data));
   },
-  update: async ({ resource, id, variables }) => {
+  update: ({ resource, id, variables }) => {
     const url = `${apiUrl}/${resource}/${id}`;
-
-    const { data } = await httpClient.patch(url, variables);
-
-    return {
-      data,
-    };
+    return httpClient
+      .patch(url, variables)
+      .then(({ data }) => Promise.resolve({ data }))
+      .catch(({ response }) => Promise.reject(response.data));
   },
   updateMany: async ({ resource, ids, variables }) => {
     const response = await Promise.all(
